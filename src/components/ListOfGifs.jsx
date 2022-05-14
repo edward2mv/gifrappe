@@ -1,24 +1,25 @@
 import Gif from './Gif';
 import {React, useEffect, useState} from 'react'
-import getGifs from './api/getGifs';
+import getGifs from '../api/getGifs';
 
 function ListOfGifs({keyword}) {
     const [gifs, setGifs] = useState([])
 
 useEffect(()=> {
-        getGifs({keyword:'programing'}).then(gifs => setGifs(gifs))
+        getGifs({keyword})
+        .then(gifs => setGifs(gifs))
         console.log("API Call")
-    },[])
+    },[keyword])
 
 return (
     <div>
         {
-        gifs.map(gif =>
+        gifs.map(({id,title,url}) =>
             <Gif
-            key={gif.id}
-            title={gif.title}
-            url={gif.url}
-            id={gif.id}
+            key={id}
+            title={title}
+            url={url}
+            id={id}
             />)
         }
     </div>
